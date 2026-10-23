@@ -115,7 +115,7 @@ a{color:var(--orange-text)}
 .app{position:absolute;inset:0;display:flex;flex-direction:column;background:#FFFFFF;background-image:radial-gradient(ellipse at 50% -10%,rgba(56,190,214,0.08) 0%,transparent 60%)}
 .scroll{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
 .screen{display:flex;flex-direction:column;padding:0 var(--gut) 40px}
-.screen.flush{padding:0 0 40px}
+.screen.flush{padding:0 0 104px}
 
 /* app header */
 .ahead{flex-shrink:0;min-height:60px;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 8px 6px var(--gut);background:rgba(255,255,255,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--card-border)}
@@ -422,7 +422,8 @@ a{color:var(--orange-text)}
 .dialog .acts{display:flex;flex-direction:column;gap:8px;width:100%}
 .qr{width:232px;max-width:100%;aspect-ratio:1;border:2px solid var(--navy);border-radius:var(--r);background:var(--white);padding:14px}
 .qr canvas{width:100%;height:100%;image-rendering:pixelated}
-.toast{position:absolute;left:16px;right:16px;bottom:84px;z-index:6;padding:14px 16px;border-radius:var(--r);border-left:4px solid var(--orange);background:var(--navy);color:var(--white);font-size:14px;line-height:20px;box-shadow:0 12px 30px -12px rgba(0,26,51,.6);transition:opacity .2s ease,transform .2s ease}
+.toast{position:absolute;left:16px;right:16px;bottom:84px;z-index:6;pointer-events:none;padding:14px 16px;border-radius:var(--r);border-left:4px solid var(--orange);background:var(--navy);color:var(--white);font-size:14px;line-height:20px;box-shadow:0 12px 30px -12px rgba(0,26,51,.6);transition:opacity .2s ease,transform .2s ease}
+.toast.low{bottom:max(16px,env(safe-area-inset-bottom,0px))}
 .toast[hidden]{display:none;opacity:0;transform:translateY(8px)}
 @media (prefers-reduced-motion:reduce){.toast{transition:none;transform:none}}
 
@@ -478,12 +479,21 @@ span.unified-check{cursor:default}
 @media (hover:hover){button.unified-check:hover .mk.todo{border-color:var(--navy)}button.unified-check:hover .mk.wait{background:rgba(196,82,3,.18)}}
 
 /* wyrównanie nagłówka Postępu */
-.tally-row{align-items:center}
-.ring{position:relative;width:128px;height:128px;flex-shrink:0}
-.ring-c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
-.ring-c b{font-family:var(--f-display);font-weight:700;font-size:44px;line-height:44px;color:var(--navy);font-variant-numeric:tabular-nums}
-.ring-c span{font-size:13px;line-height:16px;font-weight:500;color:var(--muted);font-variant-numeric:tabular-nums}
-@media (max-width:360px){.ring,.ring svg{width:108px;height:108px}.ring-c b{font-size:36px;line-height:36px}}
+.meter{display:flex;flex-direction:column;gap:12px}
+.meter-top{display:flex;align-items:center;gap:12px}
+.tn{font-family:var(--f-display);font-weight:700;font-variant-numeric:tabular-nums;color:var(--navy);line-height:44px;flex-shrink:0}
+.tn b{font-size:48px;letter-spacing:-.02em}
+.tn small{font-size:22px;color:var(--quiet);margin-left:2px}
+.meter-txt{display:flex;flex-direction:column;gap:2px;font-size:13px;line-height:17px;color:var(--muted)}
+.meter-pct{font-size:15px;line-height:20px;font-weight:700;color:var(--done);font-variant-numeric:tabular-nums}
+.meter-bar{display:flex;gap:3px}
+.mseg{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:20px;padding:0;border:0;background:none;cursor:pointer;color:var(--muted)}
+.mbar{display:block;align-self:stretch;height:10px;border-radius:3px}
+.mlab{font-family:var(--f-display);font-size:12px;line-height:14px;font-weight:600;letter-spacing:.02em;font-variant-numeric:tabular-nums}
+.mseg::after{content:"";position:absolute;inset:-14px -1px -8px}
+.mseg:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+@media (hover:hover){.mseg:hover .mbar{filter:brightness(.92)}.mseg:hover .mlab{color:var(--ink)}}
+.lvl{scroll-margin-top:8px}
 
 /* aktywny filtr: lekkie tło i cienka ramka zamiast ciężkiego obrysu */
 
@@ -510,15 +520,16 @@ span.unified-check{cursor:default}
 .fchip:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
 @media (hover:hover){.fchip[aria-pressed="false"]:hover{border-color:var(--navy)}}
 .fc-n{font-family:var(--f-display);font-weight:700;color:var(--orange-text)}
+.fc-n.ok{color:var(--navy)}
 .fchips{display:flex;gap:8px;overflow-x:auto;padding:12px 0 4px;scrollbar-width:none}
 .fchips::-webkit-scrollbar{display:none}
-.status-filters{margin:12px 0 0;display:flex;gap:8px}
+.status-filters{margin:16px 0 0;display:flex;gap:6px}
 .status-filters .fchip{flex:1 1 auto;min-width:0;padding:0 8px;gap:5px;font-size:13px}
 .status-filters .fchip .mk{width:16px;height:16px}
 .mk.xs{width:18px;height:18px;border-width:1.5px}
 @media (max-width:370px){.status-filters .fchip .mk{display:none}}
 /* chip kursu: neutralny przycisk, nie etykieta */
-.curcourse{position:relative;width:fit-content;margin:16px 0 8px;min-height:40px;padding:0 12px 0 14px;display:inline-flex;align-items:center;gap:8px;border:1px solid var(--tick);border-radius:var(--r);background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:14px;font-weight:600;line-height:20px;letter-spacing:0;text-transform:none;cursor:pointer}
+.curcourse{position:relative;width:fit-content;margin:16px 0 12px;min-height:40px;padding:0 12px 0 14px;display:inline-flex;align-items:center;gap:8px;border:1px solid var(--tick);border-radius:var(--r);background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:14px;font-weight:600;line-height:20px;letter-spacing:0;text-transform:none;cursor:pointer}
 .curcourse::after{content:"";position:absolute;inset:-2px -6px}
 .curcourse svg{flex-shrink:0;color:var(--muted)}
 @media (hover:hover){.curcourse:hover{border-color:var(--navy)}}
@@ -916,13 +927,17 @@ const sect = (id, title, body, aside) => `<section class="sect" aria-labelledby=
    Basics (levels 1–4) go in order and have one "next" skill; manoeuvres (5–7) are picked in any order,
    so there is one list of 7 sections; only levels 1–4 have a 'next' skill. */
 const courseBtn = () => `<button type="button" class="label curcourse" data-action="courses" aria-haspopup="dialog" aria-label="Kurs: ${esc(COURSES.find(c => c.id === S.course).label)}. Zmień kurs">${esc(COURSES.find(c => c.id === S.course).label)}${ico('down', 14, 2.4)}</button>`;
-/* pierścień postępu: turkus = potwierdzone, pomarańcz = zgłoszone, reszta = do zrobienia */
-function progressRing(t){
-  const n = SKILLS.length, R = 52, C = 2 * Math.PI * R, a = C * t.stamps / n, b = C * t.waiting / n, pct = Math.round(100 * t.stamps / n);
-  const arc = (len, off, col) => len > 0 ? `<circle cx="64" cy="64" r="${R}" fill="none" stroke="${col}" stroke-width="10" stroke-dasharray="${len} ${C - len}" stroke-dashoffset="${-off}" transform="rotate(-90 64 64)"/>` : '';
-  return `<div class="ring" role="img" aria-label="${t.stamps} z ${n} umiejętności potwierdzonych, ${pct}%${t.waiting ? ', ' + t.waiting + ' czeka na instruktora' : ''}">
-    <svg viewBox="0 0 128 128" width="128" height="128" aria-hidden="true"><circle cx="64" cy="64" r="${R}" fill="none" stroke="var(--rule-soft)" stroke-width="10"/>${arc(a, 0, 'var(--done)')}${arc(b, a, 'var(--orange)')}</svg>
-    <div class="ring-c" aria-hidden="true"><b>${t.stamps}</b><span>z ${n} · ${pct}%</span></div>
+/* pasek postępu: jeden odcinek na poziom (szerokość = liczba umiejętności); turkus = potwierdzone, pomarańcz = zgłoszone */
+function progressMeter(t){
+  const n = SKILLS.length, pct = Math.round(100 * t.stamps / n);
+  const segs = PAGES.map(p => {
+    const k = p.skills.length, c = 100 * p.skills.filter(x => levelOf(x[0]) === 2).length / k, w = 100 * p.skills.filter(x => levelOf(x[0]) === 1).length / k;
+    const done = p.skills.filter(x => levelOf(x[0]) === 2).length;
+    return `<button type="button" class="mseg" data-jump="${p.id}" aria-label="Poziom ${p.id}, ${esc(lvlName(p))}: ${done} z ${k} potwierdzonych. Przejdź do poziomu" style="flex:${k}"><span class="mbar" style="background:linear-gradient(90deg,var(--done) 0 ${c}%,var(--orange) ${c}% ${c + w}%,var(--rule-soft) ${c + w}% 100%)"></span><span class="mlab" aria-hidden="true">P${p.id}</span></button>`;
+  }).join('');
+  return `<div class="meter">
+    <div class="meter-top"><span class="tn"><b>${t.stamps}</b><small>/${n}</small></span><span class="meter-txt">umiejętności potwierdził instruktor<b class="meter-pct">${pct}% programu</b></span></div>
+    <div class="meter-bar" role="group" aria-label="Postęp wg poziomów">${segs}</div>
   </div>`;
 }
 function bookScreen(){
@@ -934,8 +949,8 @@ function bookScreen(){
 
   const statusFilters = `<div class="status-filters" role="group" aria-label="Filtruj umiejętności wg statusu">
     <button type="button" class="fchip" data-status-filter="all" aria-pressed="${filter === 'all'}">Wszystkie</button>
-    <button type="button" class="fchip" data-status-filter="confirmed" aria-pressed="${filter === 'confirmed'}"><span class="mk done xs" aria-hidden="true">${ico('check', 11, 3)}</span>Potwierdzone</button>
-    <button type="button" class="fchip" data-status-filter="reported" aria-pressed="${filter === 'reported'}"><span class="mk wait xs" aria-hidden="true">${ico('clock', 11, 2.6)}</span>Zgłoszone</button>
+    <button type="button" class="fchip" data-status-filter="confirmed" aria-pressed="${filter === 'confirmed'}"><span class="mk done xs" aria-hidden="true">${ico('check', 11, 3)}</span>Potwierdzone <span class="fc-n ok">${t.stamps}</span></button>
+    <button type="button" class="fchip" data-status-filter="reported" aria-pressed="${filter === 'reported'}"><span class="mk wait xs" aria-hidden="true">${ico('clock', 11, 2.6)}</span>Zgłoszone <span class="fc-n">${t.waiting}</span></button>
   </div>`;
 
   const segsFor = p => `<div class="segs" role="img" aria-label="${pageStats(p).stamps} z ${p.skills.length} potwierdzonych">${p.skills.map(k => { const l = levelOf(k[0]); const hit = filter === 'all' || (filter === 'confirmed' ? l === 2 : l === 1); return `<i class="mk xs ${l === 2 ? 'done' : l === 1 ? 'wait' : 'todo'}${hit ? '' : ' dim'}">${l === 2 ? ico('check', 11, 3) : l === 1 ? ico('clock', 11, 2.6) : ''}</i>`; }).join('')}</div>`;
@@ -1019,13 +1034,7 @@ function bookScreen(){
     ${courseBtn()}
     <section class="tally" aria-labelledby="path-t">
       <h1 class="sr" id="path-t" tabindex="-1">Twoja ścieżka</h1>
-      <div class="tally-row">
-        ${progressRing(t)}
-        <div class="tally-meta">
-          <p>umiejętności potwierdził instruktor</p>
-          ${t.waiting ? `<span class="tm-pill wait">${ico('clock', 14, 2.4)}<span><b>${t.waiting}</b> czeka na instruktora</span></span>` : ''}
-        </div>
-      </div>
+      ${progressMeter(t)}
       ${statusFilters}
     </section>
     <section class="zone-sect" aria-labelledby="z1-t">
@@ -1191,6 +1200,7 @@ function render(keep){
   head.innerHTML = header();
   view.innerHTML = ({book:bookScreen, skill:skillScreen, videos:videosScreen, crew:crewScreen, me:meScreen})[S.screen]();
   tabs.hidden = detail;
+  toastEl.classList.toggle('low', detail);
   tabs.innerHTML = tabBar();
   composer.hidden = S.screen !== 'crew';
   scroll.scrollTop = keep ? top : 0;
@@ -1229,6 +1239,13 @@ document.addEventListener('click', e => {
   if (!el) return;
   const d = el.dataset;
   if (d.go) { e.preventDefault(); if (d.go === 'videos') S.clip = null; go(d.go, d.go === 'book' ? {page: S.page} : {}); if (d.anchor) { const t = $(d.anchor); if (t) t.scrollIntoView({block:'start'}); } return; }
+  if (d.jump) {
+    S.statusFilter = 'all'; S.filterClosed = {}; S.open = +d.jump;
+    render(true);
+    const t = $('lvl-sect-' + d.jump);
+    if (t) scroll.scrollTo({top: scroll.scrollTop + t.getBoundingClientRect().top - scroll.getBoundingClientRect().top - 8, behavior: reduceMotion() ? 'auto' : 'smooth'});
+    return;
+  }
   if (d.statusFilter) {
     const next = (S.statusFilter === d.statusFilter && d.statusFilter !== 'all') ? 'all' : d.statusFilter;
     S.statusFilter = next;
