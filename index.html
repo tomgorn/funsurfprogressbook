@@ -591,6 +591,8 @@ span.unified-check{cursor:default}
 .intro-art .tips li:last-child{border-bottom:0}
 .intro-art .offpill{pointer-events:none;right:10px;bottom:10px;min-height:36px;padding:0 12px;font-size:12px}
 .intro-art .intro-clip{height:120px}
+.intro-art.a4 .skrow{border-radius:0;border-width:0 0 1px 0;border-left-width:3.5px}
+.intro-art .focusbtn{margin:14px;width:calc(100% - 28px);pointer-events:none;background:rgba(0,26,51,.06);border-color:var(--navy)}
 .intro-art.a3 .st{display:flex;align-items:center;gap:14px;padding:14px;border-bottom:1px solid var(--rule-soft)}
 .intro-art.a3 .st:last-child{border-bottom:0}
 .intro-art.a3 .st b{font-size:17px;font-weight:600}
@@ -645,7 +647,7 @@ span.unified-check{cursor:default}
     <div class="intro" id="intro" role="region" aria-label="Jak działa Progress Book" hidden>
       <div class="intro-top"><button type="button" class="intro-skip" data-action="introClose">Pomiń</button></div>
       <div class="intro-track" id="intro-track">
-        <section class="intro-slide" aria-roledescription="slajd" aria-label="1 z 4">
+        <section class="intro-slide" aria-roledescription="slajd" aria-label="1 z 5">
           <div class="intro-art" aria-hidden="true">
             <div class="il"><span class="lvl-badge done"><span class="lvl-badge-p">3</span><span class="lvl-badge-n">6/6</span><span class="lvl-badge-bar" style="background:var(--done)"></span></span><b>PSWING 2: Skrzydło (wing) + deska wypornościowa</b><span class="chev"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></div>
             <div class="il"><span class="lvl-badge"><span class="lvl-badge-p">4</span><span class="lvl-badge-n">4/7</span><span class="lvl-badge-bar" style="background:linear-gradient(90deg,var(--done) 0 57%,var(--orange) 57% 71%,var(--rule-soft) 71% 100%)"></span></span><b>PSWING 3: Deska z foilem</b><span class="chev"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></div>
@@ -653,24 +655,32 @@ span.unified-check{cursor:default}
           <h2>Lista umiejętności</h2>
           <p>Program kursu ma 7 poziomów. Dotknij poziomu, żeby zobaczyć jego umiejętności.</p>
         </section>
-        <section class="intro-slide" aria-roledescription="slajd" aria-label="2 z 4">
+        <section class="intro-slide" aria-roledescription="slajd" aria-label="2 z 5">
           <div class="intro-art" aria-hidden="true">
             <div class="intro-clip"><svg class="w" aria-hidden="true" viewBox="0 0 300 96" preserveAspectRatio="none" fill="none" stroke="var(--navy-line)" stroke-width="2"><path d="M0 62c25-12 50-12 75 0s50 12 75 0 50-12 75 0 50 12 75 0"/><path d="M0 82c25-12 50-12 75 0s50 12 75 0 50-12 75 0 50 12 75 0"/></svg><span class="play"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg></span><span class="offpill"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>Zapisz offline</span></div>
             <ol class="tips"><li><span>1</span><span>Przygotowanie: prędkość i ugięte kolana.</span></li><li><span>2</span><span>Wybicie: ciężar na przednią nogę, potem na tylną.</span></li></ol>
           </div>
           <h2>Wideo i wskazówki</h2>
-          <p>Dotknij umiejętności: wideo, opis, wskazówki. Gwiazdką zaznaczysz, nad czym teraz pracujesz.</p>
+          <p>Dotknij umiejętności. Zobaczysz wideo, opis i wskazówki instruktora. Wideo możesz zapisać w telefonie.</p>
         </section>
-        <section class="intro-slide" aria-roledescription="slajd" aria-label="3 z 4">
+        <section class="intro-slide" aria-roledescription="slajd" aria-label="3 z 5">
           <div class="intro-art a3" aria-hidden="true">
-            <div class="st"><span class="mk todo"></span><b>Do zrobienia</b></div>
+            <div class="st"><span class="mk todo"></span><b>Do opanowania</b></div>
             <div class="st"><span class="mk wait"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></span><b>Zgłoszone</b></div>
             <div class="st"><span class="mk done"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg></span><b>Potwierdzone</b></div>
           </div>
           <h2>Zgłoś, instruktor potwierdza</h2>
           <p>Gdy umiesz, dotknij kółka przy umiejętności. Instruktor sprawdzi ją na wodzie. Kod QR u góry pokazuje mu Twoje zgłoszenia.</p>
         </section>
-        <section class="intro-slide" aria-roledescription="slajd" aria-label="4 z 4">
+        <section class="intro-slide" aria-roledescription="slajd" aria-label="4 z 5">
+          <div class="intro-art a4" aria-hidden="true">
+            <div class="skrow"><span class="skmain"><span class="sk-num">5.7</span><span class="sk-info"><span class="sk-title">Skok prosty <span class="sk-star"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.5 2.9 1-6.1-4.3-4.3 6.1-.9z"/></svg></span></span></span></span><span class="unified-check"><span class="mk todo"></span></span></div>
+            <div class="btn ghost focusbtn"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.5 2.9 1-6.1-4.3-4.3 6.1-.9z"/></svg>Mój focus</div>
+          </div>
+          <h2>Mój focus</h2>
+          <p>Gwiazdką oznaczasz umiejętności, które teraz trenujesz. To Twoje cele, zebrane w jednym filtrze.</p>
+        </section>
+        <section class="intro-slide" aria-roledescription="slajd" aria-label="5 z 5">
           <h2>Pozostałe zakładki</h2>
           <ul class="intro-tabs">
             <li><span class="it-ico"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="15" height="14" rx="2"/><path d="m17 10 5-3v10l-5-3"/></svg></span><span><b>Nagrania</b>Twoje nagrania z wody i wideo szkoleniowe.</span></li>
@@ -680,7 +690,7 @@ span.unified-check{cursor:default}
         </section>
       </div>
       <div class="intro-foot">
-        <div class="intro-bars" id="intro-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+        <div class="intro-bars" id="intro-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
         <button type="button" class="btn" id="intro-next" data-action="introNext">Dalej</button>
       </div>
     </div>
@@ -1075,7 +1085,7 @@ function skillScreen(){
   const short = shortOf(s.id), isNext = s.id === nextSkill(), back = !on && !wait && S.notes[s.id];
   const copy = on ? ['Potwierdzone', `${stampBy(s.id)} · ${stampDate(s.id)}`]
     : wait ? ['Zgłoszone do weryfikacji', 'Instruktor zweryfikuje wykonanie na wodzie.']
-    : back ? ['Jeszcze nie', 'Ćwicz dalej i zgłoś ponownie, gdy poczujesz, że umiesz.'] : ['Do zrobienia', 'Gdy poczujesz, że umiesz, zgłoś to instruktorowi.'];
+    : back ? ['Jeszcze nie', 'Ćwicz dalej i zgłoś ponownie, gdy poczujesz, że umiesz.'] : ['Do opanowania', 'Ćwicz na wodzie. Gdy poczujesz, że umiesz, zgłoś ją do potwierdzenia.'];
   const tips = d.tips || [];
   const tipLi = (t, i) => `<li><span aria-hidden="true">${i + 1}</span><span>${esc(t)}</span></li>`;
   const tipsHtml = tips.length ? `<ol class="tips">${tips.slice(0, 3).map(tipLi).join('')}</ol>
@@ -1214,7 +1224,7 @@ function meScreen(){
     ${sect('ach-t', 'Kamienie milowe', `<ul class="miles">${got.map(mile).join('')}</ul>
       <details class="more"${got.length ? '' : ' open'}><summary class="linkbtn">Przed Tobą (${todo.length}) ${ico('down', 18, 2)}</summary><ul class="miles">${todo.map(mile).join('')}</ul></details>`)}
     ${sect('priv-t', 'Kto widzi', `<ul class="switches">${swWho}</ul>`)}
-    ${sect('help-t', 'Pomoc', `<ul class="courses"><li><button type="button" data-action="intro"><span><b>Jak działa Progress Book</b><small>Krótki przewodnik, 4 ekrany</small></span>${ico('chev', 20, 2)}</button></li></ul>`)}
+    ${sect('help-t', 'Pomoc', `<ul class="courses"><li><button type="button" data-action="intro"><span><b>Jak działa Progress Book</b><small>Krótki przewodnik, 5 ekranów</small></span>${ico('chev', 20, 2)}</button></li></ul>`)}
     ${sect('rem-t', 'Przypomnienia', `<ul class="switches">${swRemind}</ul>`)}
   </div>`;
 }
