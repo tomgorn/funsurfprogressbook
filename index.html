@@ -46,8 +46,8 @@
   --orange: var(--fs-color-primary);     /* Unified brand orange */
   --btn: var(--fs-color-primary);
   --btn-hover: var(--fs-color-primary-hover);
-  --done: #0A8CA5;                       /* turkus „zaliczone”: 4:1 na bieli (obrys i ✓ ≥3:1) */
-  --done-tint: rgba(10,140,165,.1);
+  --done: #0A7C90;                       /* turkus „zaliczone”: 4,9:1 na bieli, więc działa też jako kolor tekstu */
+  --done-tint: rgba(10,124,144,.08);
   --confirm: #001A33;                    /* stan „potwierdzone”: granat marki, ale w lekkiej formie (obrys, cienkie paski); pomarańcz tylko dla rzeczy wymagających uwagi */
   --orange-text: #A84203;                /* AA contrast text (5.3:1) */
   --tint: #FFF4EB;
@@ -186,13 +186,6 @@ a{color:var(--orange-text)}
 .tm-pill.wait{color:var(--orange-text);background:rgba(196,82,3,.08);border-color:rgba(196,82,3,.22)}
 .legend{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px 16px;font-size:12px;line-height:18px;color:var(--muted)}
 .legend li{display:flex;align-items:center;gap:8px}
-.sg{display:block;width:18px;height:7px;box-sizing:border-box;border:1px solid rgba(0,26,51,0.15);background:rgba(0,26,51,0.04);border-radius:2px}
-.sg.on{background:var(--confirm);border-color:var(--confirm)}
-.sg.wait{border-color:var(--orange);background:var(--orange)}
-.mk.dim{opacity:.25}
-.segs .mk{transition:opacity .16s ease}
-@media (prefers-reduced-motion:reduce){.segs .mk{transition:none}}
-.segs{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
 
 
 /* filtry statusu (aerodynamiczne pigułki z rozproszonym cieniem) */
@@ -215,12 +208,14 @@ a{color:var(--orange-text)}
 .lvl{border-bottom:1px solid rgba(0,26,51,0.05);transition:background-color .2s cubic-bezier(0.16,1,0.3,1),border-color .2s ease,box-shadow .2s ease}
 .lvl.done,.lvl.is-done{background:linear-gradient(90deg,rgba(0,26,51,0.012) 0%,transparent 70%)}
 
-.lvl-head{width:100%;min-height:68px;display:grid;grid-template-columns:42px minmax(0,1fr) auto 20px;align-items:center;column-gap:12px;padding:14px 0;border:0;background:none;text-align:left;color:var(--ink);cursor:pointer}
+.lvl-head{width:100%;min-height:68px;display:grid;grid-template-columns:60px minmax(0,1fr) 32px;align-items:center;column-gap:12px;padding:14px 0;border:0;background:none;text-align:left;color:var(--ink);cursor:pointer}
 .lvl-head .num{display:flex;align-items:center;justify-content:center}
 
 /* Double-Bezel Level Badge */
-.lvl-badge{position:relative;width:38px;height:38px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;background:#FFFFFF;border:1.5px solid rgba(0,26,51,0.13);color:var(--navy);box-shadow:0 1px 3px rgba(0,26,51,0.03);transition:transform .16s ease,box-shadow .16s ease}
-.lvl-badge .lvl-badge-p{font-family:var(--f-display);font-size:14px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.lvl-badge{position:relative;width:60px;height:60px;overflow:hidden;padding-bottom:5px;flex-direction:column;justify-content:center;gap:2px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;background:#FFFFFF;border:1.5px solid rgba(0,26,51,0.13);color:var(--navy);box-shadow:0 1px 3px rgba(0,26,51,0.03);transition:transform .16s ease,box-shadow .16s ease}
+.lvl-badge .lvl-badge-p{font-family:var(--f-display);font-size:20px;font-weight:700;line-height:22px;font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.lvl-badge-bar{position:absolute;left:0;right:0;bottom:0;height:5px}
+.lvl-badge-n{font-size:12px;line-height:14px;font-weight:500;color:var(--muted);font-variant-numeric:tabular-nums}
 
 /* 1. Zaliczony badge z mikropieczęcią */
 
@@ -466,13 +461,14 @@ a{color:var(--orange-text)}
 /* jeden język statusu w całej aplikacji: do zrobienia = pusty szary krąg, zgłoszone = pomarańczowy krąg z zegarem, potwierdzone = granatowy krąg z ✓ */
 .unified-check{width:44px;height:44px;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;border:0;background:none;padding:0;cursor:pointer}
 span.unified-check{cursor:default}
-.unified-check:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:50%}
-.mk{width:32px;height:32px;box-sizing:border-box;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;transition:border-color .16s ease,background-color .16s ease}
+.unified-check:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:28%}
+.mk{width:32px;height:32px;box-sizing:border-box;border-radius:28%;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;transition:border-color .16s ease,background-color .16s ease}
 .mk.lg{width:40px;height:40px}
 .mk.sm{width:28px;height:28px}
 /* ukończony poziom: wypełniona plakietka w kolorze „potwierdzone” (jak marker i paski) */
-.lvl-badge.done{background:var(--done-tint);border-color:var(--done);color:var(--done);box-shadow:none}
+.lvl-badge.done{background:var(--done-tint);border-color:var(--done);color:var(--navy);box-shadow:none}
 .lvl-head .n{display:inline-flex;align-items:center;justify-content:flex-end;min-width:28px}
+.lvl-head .n.none{min-width:0}
 .mk.todo{border:2px solid var(--tick);background:var(--paper)}
 .mk.wait{border:2px solid var(--orange);background:rgba(196,82,3,.1);color:var(--orange-text)}
 .mk.done{border:2px solid var(--done);background:var(--done-tint);color:var(--done)}
@@ -486,13 +482,14 @@ span.unified-check{cursor:default}
 .tn small{font-size:22px;color:var(--quiet);margin-left:2px}
 .meter-txt{display:flex;flex-direction:column;gap:2px;font-size:13px;line-height:17px;color:var(--muted)}
 .meter-pct{font-size:15px;line-height:20px;font-weight:700;color:var(--done);font-variant-numeric:tabular-nums}
-.meter-bar{display:flex;gap:3px}
-.mseg{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:20px;padding:0;border:0;background:none;cursor:pointer;color:var(--muted)}
-.mbar{display:block;align-self:stretch;height:10px;border-radius:3px}
-.mlab{font-family:var(--f-display);font-size:12px;line-height:14px;font-weight:600;letter-spacing:.02em;font-variant-numeric:tabular-nums}
-.mseg::after{content:"";position:absolute;inset:-14px -1px -8px}
+.meter-bar{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.mseg{display:flex;flex-direction:column;align-items:center;gap:0;min-width:0;padding:10px 0 0;border:1px solid var(--tick);border-radius:8px;background:var(--paper);cursor:pointer;color:var(--ink);overflow:hidden}
+.mlab{font-family:var(--f-display);font-size:15px;line-height:18px;font-weight:700}
+.mbar{display:block;align-self:stretch;height:5px;margin-top:9px}
+.mseg.full{border-color:var(--done);background:var(--done-tint)}
+.mseg.full .mlab{color:var(--navy)}
 .mseg:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
-@media (hover:hover){.mseg:hover .mbar{filter:brightness(.92)}.mseg:hover .mlab{color:var(--ink)}}
+@media (hover:hover){.mseg:hover{border-color:var(--navy)}}
 .lvl{scroll-margin-top:8px}
 
 /* aktywny filtr: lekkie tło i cienka ramka zamiast ciężkiego obrysu */
@@ -534,9 +531,15 @@ span.unified-check{cursor:default}
 .curcourse svg{flex-shrink:0;color:var(--muted)}
 @media (hover:hover){.curcourse:hover{border-color:var(--navy)}}
 
+/* wiersz poziomu: duża plakietka z paskiem przy dolnej krawędzi, tytuł na całą resztę szerokości, przycisk rozwijania jako zaokrąglony kwadrat */
+.lvl-head.has-n{grid-template-columns:60px minmax(0,1fr) auto 32px}
+.lvl-head{column-gap:14px}
+.lvl-head .chev{width:32px;height:32px;box-sizing:border-box;border-radius:28%;background:rgba(0,26,51,.05);border:1px solid rgba(0,26,51,.12);color:var(--ink);justify-content:center;align-items:center;transition:background-color .16s ease,color .16s ease,transform .2s cubic-bezier(.16,1,.3,1)}
+.lvl-head[aria-expanded="true"] .chev{background:var(--navy);border-color:var(--navy);color:var(--white)}
+@media (hover:hover){.lvl-head[aria-expanded="false"]:hover .chev{border-color:var(--navy)}}
 /* potwierdzenie: raz rozchodzący się pierścień jak kręgi na wodzie */
 .mk{position:relative}
-.mk.fresh::after{content:"";position:absolute;inset:-2px;border-radius:50%;border:2px solid var(--orange);pointer-events:none;animation:ripple .6s ease-out both}
+.mk.fresh::after{content:"";position:absolute;inset:-2px;border-radius:28%;border:2px solid var(--orange);pointer-events:none;animation:ripple .6s ease-out both}
 @keyframes ripple{from{transform:scale(1);opacity:.7}to{transform:scale(1.9);opacity:0}}
 /* chwila nagrody w kolorze marki: nowe potwierdzenie zaczyna pomarańczowe i osiada na granacie */
 .mk.done.fresh{animation:settle 1.4s ease-out both}
@@ -564,7 +567,7 @@ span.unified-check{cursor:default}
 .intro-skip:focus-visible,.intro .btn:focus-visible{outline-color:#fff}
 /* jedyny ruch: kółko dojrzewa od pustego do zgłoszonego, potem do potwierdzonego; stan końcowy jest domyślny */
 .intro-slide.is-live .a3 .mk.done{animation:settle 1.4s ease-out .5s both}
-.intro-slide.is-live .a3 .mk.done::after{content:"";position:absolute;inset:-2px;border-radius:50%;border:2px solid var(--orange);pointer-events:none;animation:ripple .6s ease-out .5s both}
+.intro-slide.is-live .a3 .mk.done::after{content:"";position:absolute;inset:-2px;border-radius:28%;border:2px solid var(--orange);pointer-events:none;animation:ripple .6s ease-out .5s both}
 @media (prefers-reduced-motion:reduce){.intro-slide.is-live .a3 .mk.done{animation:none}.intro-slide.is-live .a3 .mk.done::after{display:none}.intro-bars i{transition:none}}
 .il{display:grid;grid-template-columns:38px minmax(0,1fr) auto;align-items:center;gap:12px;padding:14px;border-bottom:1px solid var(--rule-soft)}
 .il:last-child{border-bottom:0}
@@ -933,12 +936,19 @@ function progressMeter(t){
   const segs = PAGES.map(p => {
     const k = p.skills.length, c = 100 * p.skills.filter(x => levelOf(x[0]) === 2).length / k, w = 100 * p.skills.filter(x => levelOf(x[0]) === 1).length / k;
     const done = p.skills.filter(x => levelOf(x[0]) === 2).length;
-    return `<button type="button" class="mseg" data-jump="${p.id}" aria-label="Poziom ${p.id}, ${esc(lvlName(p))}: ${done} z ${k} potwierdzonych. Przejdź do poziomu" style="flex:${k}"><span class="mbar" style="background:linear-gradient(90deg,var(--done) 0 ${c}%,var(--orange) ${c}% ${c + w}%,var(--rule-soft) ${c + w}% 100%)"></span><span class="mlab" aria-hidden="true">P${p.id}</span></button>`;
+    return `<button type="button" class="mseg${done === k ? ' full' : ''}" data-jump="${p.id}" aria-label="Poziom ${p.id}, ${esc(lvlName(p))}: ${done} z ${k} potwierdzonych. Przejdź do poziomu"><span class="mlab" aria-hidden="true">P${p.id}</span><span class="mbar" aria-hidden="true" style="background:linear-gradient(90deg,var(--done) 0 ${c}%,var(--orange) ${c}% ${c + w}%,var(--rule-soft) ${c + w}% 100%)"></span></button>`;
   }).join('');
   return `<div class="meter">
     <div class="meter-top"><span class="tn"><b>${t.stamps}</b><small>/${n}</small></span><span class="meter-txt">umiejętności potwierdził instruktor<b class="meter-pct">${pct}% programu</b></span></div>
     <div class="meter-bar" role="group" aria-label="Postęp wg poziomów">${segs}</div>
   </div>`;
+}
+/* ciągły pasek postępu poziomu: turkus = potwierdzone, pomarańcz = zgłoszone; aktywny filtr zostawia tylko pasujący kolor */
+function barFill(p, filter){
+  const k = p.skills.length;
+  const c = filter === 'reported' ? 0 : 100 * p.skills.filter(x => levelOf(x[0]) === 2).length / k;
+  const w = filter === 'confirmed' ? 0 : 100 * p.skills.filter(x => levelOf(x[0]) === 1).length / k;
+  return `linear-gradient(90deg,var(--done) 0 ${c}%,var(--orange) ${c}% ${c + w}%,var(--rule-soft) ${c + w}% 100%)`;
 }
 function bookScreen(){
   const t = totals();
@@ -953,7 +963,6 @@ function bookScreen(){
     <button type="button" class="fchip" data-status-filter="reported" aria-pressed="${filter === 'reported'}"><span class="mk wait xs" aria-hidden="true">${ico('clock', 11, 2.6)}</span>Zgłoszone <span class="fc-n">${t.waiting}</span></button>
   </div>`;
 
-  const segsFor = p => `<div class="segs" role="img" aria-label="${pageStats(p).stamps} z ${p.skills.length} potwierdzonych">${p.skills.map(k => { const l = levelOf(k[0]); const hit = filter === 'all' || (filter === 'confirmed' ? l === 2 : l === 1); return `<i class="mk xs ${l === 2 ? 'done' : l === 1 ? 'wait' : 'todo'}${hit ? '' : ' dim'}">${l === 2 ? ico('check', 11, 3) : l === 1 ? ico('clock', 11, 2.6) : ''}</i>`; }).join('')}</div>`;
 
   const level = p => {
     const st = pageStats(p);
@@ -1003,19 +1012,18 @@ function bookScreen(){
       : `${st.stamps}/${st.total}`;
 
     // Level badge (Zaliczony z pieczęcią vs Z numerkiem)
-    const badgeHtml = `<span class="lvl-badge${st.done ? ' done' : ''}" aria-hidden="true"><span class="lvl-badge-p">P${p.id}</span></span>`;
+    const badgeHtml = `<span class="lvl-badge${st.done ? ' done' : ''}" aria-hidden="true"><span class="lvl-badge-p">P${p.id}</span><span class="lvl-badge-n">${st.stamps}/${st.total}</span><span class="lvl-badge-bar" style="background:${barFill(p, filter)}"></span></span>`;
 
     return `<li class="lvl ${cls}" id="lvl-sect-${p.id}">
-      <button type="button" class="lvl-head" aria-expanded="${isOpen}" aria-controls="lvl-${p.id}" data-level="${p.id}">
+      <button type="button" class="lvl-head${filter === 'reported' ? ' has-n' : ''}" aria-expanded="${isOpen}" aria-controls="lvl-${p.id}" data-level="${p.id}">
         <span class="num">${badgeHtml}</span>
         <span class="tx">
           <span class="lvl-title-row">
-            <b><span class="sr">Poziom ${p.id}. </span>${esc(lvlName(p))}</b>
+            <b><span class="sr">Poziom ${p.id}. </span>${esc(lvlName(p))}<span class="sr">. ${st.stamps} z ${st.total} potwierdzonych${st.done ? ', poziom ukończony' : ''}</span></b>
           </span>
-          ${segsFor(p)}
         </span>
-        <span class="n" aria-label="${st.stamps} z ${st.total} potwierdzonych${st.done ? ', poziom ukończony' : ''}">${st.done ? `<span class="mk done sm" aria-hidden="true">${ico('check', 14, 3)}</span>` : countLabel}</span>
-        <span class="chev" aria-hidden="true">${ico('down', 18, 2)}</span>
+        ${filter === 'reported' ? `<span class="n">${countLabel}</span>` : ''}
+        <span class="chev" aria-hidden="true">${ico('down', 16, 2.6)}</span>
       </button>
       ${isOpen ? `<div class="lvl-body" id="lvl-${p.id}">${rows}</div>` : ''}
     </li>`;
