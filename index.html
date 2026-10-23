@@ -481,15 +481,14 @@ span.unified-check{cursor:default}
 .tn b{font-size:48px;letter-spacing:-.02em}
 .tn small{font-size:22px;color:var(--quiet);margin-left:2px}
 .meter-txt{display:flex;flex-direction:column;gap:2px;font-size:13px;line-height:17px;color:var(--muted)}
-.meter-pct{font-size:15px;line-height:20px;font-weight:700;color:var(--done);font-variant-numeric:tabular-nums}
 .meter-bar{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
-.mseg{display:flex;flex-direction:column;align-items:center;gap:0;min-width:0;padding:10px 0 0;border:1px solid var(--tick);border-radius:8px;background:var(--paper);cursor:pointer;color:var(--ink);overflow:hidden}
+.mseg{display:flex;flex-direction:column;align-items:center;min-width:0;padding:10px 0 0;border:1px solid var(--tick);border-radius:8px;background:var(--paper);cursor:pointer;color:var(--ink);overflow:hidden}
 .mlab{font-family:var(--f-display);font-size:15px;line-height:18px;font-weight:700}
 .mbar{display:block;align-self:stretch;height:5px;margin-top:9px}
 .mseg.full{border-color:var(--done);background:var(--done-tint)}
-.mseg.full .mlab{color:var(--navy)}
 .mseg:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
 @media (hover:hover){.mseg:hover{border-color:var(--navy)}}
+.meter-pct{font-size:15px;line-height:20px;font-weight:700;color:var(--done);font-variant-numeric:tabular-nums}
 .lvl{scroll-margin-top:8px}
 
 /* aktywny filtr: lekkie tło i cienka ramka zamiast ciężkiego obrysu */
@@ -520,7 +519,7 @@ span.unified-check{cursor:default}
 .fc-n.ok{color:var(--navy)}
 .fchips{display:flex;gap:8px;overflow-x:auto;padding:12px 0 4px;scrollbar-width:none}
 .fchips::-webkit-scrollbar{display:none}
-.status-filters{margin:16px 0 0;display:flex;gap:6px}
+.status-filters{margin:12px 0 0;display:flex;gap:6px}
 .status-filters .fchip{flex:1 1 auto;min-width:0;padding:0 8px;gap:5px;font-size:13px}
 .status-filters .fchip .mk{width:16px;height:16px}
 .mk.xs{width:18px;height:18px;border-width:1.5px}
@@ -537,6 +536,16 @@ span.unified-check{cursor:default}
 .lvl-head .chev{width:32px;height:32px;box-sizing:border-box;border-radius:28%;background:rgba(0,26,51,.05);border:1px solid rgba(0,26,51,.12);color:var(--ink);justify-content:center;align-items:center;transition:background-color .16s ease,color .16s ease,transform .2s cubic-bezier(.16,1,.3,1)}
 .lvl-head[aria-expanded="true"] .chev{background:var(--navy);border-color:var(--navy);color:var(--white)}
 @media (hover:hover){.lvl-head[aria-expanded="false"]:hover .chev{border-color:var(--navy)}}
+/* przycisk „następna umiejętność" */
+.goon{width:100%;margin-top:16px;min-height:64px;display:grid;grid-template-columns:minmax(0,1fr) 40px;align-items:center;gap:12px;padding:10px 12px 10px 16px;border:0;border-radius:12px;background:var(--navy);color:var(--white);text-align:left;box-shadow:0 4px 14px rgba(0,26,51,.22);transition:transform .16s ease}
+.goon:active{transform:scale(.98)}
+.goon-k{display:block;font-size:13px;line-height:18px;color:var(--on-navy-2)}
+.goon b{display:block;font-size:16px;line-height:22px;font-weight:600}
+.goon-go{width:40px;height:40px;border-radius:28%;background:var(--orange);display:flex;align-items:center;justify-content:center}
+.goon:focus-visible{outline-color:var(--focus)}
+@media (prefers-reduced-motion:reduce){.goon{transition:none}.goon:active{transform:none}}
+/* chip kursu: lekki tekst ze strzałką */
+.curcourse{border-color:transparent;background:none;padding-left:0;margin-left:0}
 /* potwierdzenie: raz rozchodzący się pierścień jak kręgi na wodzie */
 .mk{position:relative}
 .mk.fresh::after{content:"";position:absolute;inset:-2px;border-radius:28%;border:2px solid var(--orange);pointer-events:none;animation:ripple .6s ease-out both}
@@ -569,10 +578,10 @@ span.unified-check{cursor:default}
 .intro-slide.is-live .a3 .mk.done{animation:settle 1.4s ease-out .5s both}
 .intro-slide.is-live .a3 .mk.done::after{content:"";position:absolute;inset:-2px;border-radius:28%;border:2px solid var(--orange);pointer-events:none;animation:ripple .6s ease-out .5s both}
 @media (prefers-reduced-motion:reduce){.intro-slide.is-live .a3 .mk.done{animation:none}.intro-slide.is-live .a3 .mk.done::after{display:none}.intro-bars i{transition:none}}
-.il{display:grid;grid-template-columns:38px minmax(0,1fr) auto;align-items:center;gap:12px;padding:14px;border-bottom:1px solid var(--rule-soft)}
+.il{display:grid;grid-template-columns:60px minmax(0,1fr) 32px;align-items:center;gap:14px;padding:12px 14px;border-bottom:1px solid var(--rule-soft)}
+.il b{font-size:16px;line-height:22px;font-weight:600}
+.intro-art .chev{width:32px;height:32px;box-sizing:border-box;border-radius:28%;background:rgba(0,26,51,.05);border:1px solid rgba(0,26,51,.12);display:flex;align-items:center;justify-content:center;color:var(--ink)}
 .il:last-child{border-bottom:0}
-.il-tx{display:flex;flex-direction:column;gap:2px;min-width:0}
-.il-tx b{font-size:15px;line-height:20px;font-weight:600}
 .il .n{font-family:var(--f-display);font-size:15px;font-weight:600;color:var(--muted)}
 .intro-art .tips{padding:0 14px}
 .intro-art .tips li:last-child{border-bottom:0}
@@ -634,8 +643,8 @@ span.unified-check{cursor:default}
       <div class="intro-track" id="intro-track">
         <section class="intro-slide" aria-roledescription="slajd" aria-label="1 z 4">
           <div class="intro-art" aria-hidden="true">
-            <div class="il"><span class="lvl-badge done"><span class="lvl-badge-p">P3</span></span><span class="il-tx"><b>PSWING 2: Skrzydło (wing) + deska wypornościowa</b><span class="segs"><i class="mk xs done"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg></i><i class="mk xs done"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg></i><i class="mk xs done"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg></i><i class="mk xs done"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg></i><i class="mk xs done"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg></i><i class="mk xs done"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg></i></span></span><span class="mk done sm"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg></span></div>
-            <div class="il"><span class="lvl-badge"><span class="lvl-badge-p">P4</span></span><span class="il-tx"><b>PSWING 3: Deska z foilem</b><span class="segs"><i class="mk xs done"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg></i><i class="mk xs done"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg></i><i class="mk xs done"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg></i><i class="mk xs done"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg></i><i class="mk xs wait"><svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></i><i class="mk xs todo"></i><i class="mk xs todo"></i></span></span><span class="n">4/7</span></div>
+            <div class="il"><span class="lvl-badge done"><span class="lvl-badge-p">P3</span><span class="lvl-badge-n">6/6</span><span class="lvl-badge-bar" style="background:var(--done)"></span></span><b>PSWING 2: Skrzydło (wing) + deska wypornościowa</b><span class="chev"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></div>
+            <div class="il"><span class="lvl-badge"><span class="lvl-badge-p">P4</span><span class="lvl-badge-n">4/7</span><span class="lvl-badge-bar" style="background:linear-gradient(90deg,var(--done) 0 57%,var(--orange) 57% 71%,var(--rule-soft) 71% 100%)"></span></span><b>PSWING 3: Deska z foilem</b><span class="chev"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></div>
           </div>
           <h2>Lista umiejętności</h2>
           <p>Program kursu ma 7 poziomów. Dotknij poziomu, żeby zobaczyć jego umiejętności.</p>
@@ -930,18 +939,15 @@ const sect = (id, title, body, aside) => `<section class="sect" aria-labelledby=
    Basics (levels 1–4) go in order and have one "next" skill; manoeuvres (5–7) are picked in any order,
    so there is one list of 7 sections; only levels 1–4 have a 'next' skill. */
 const courseBtn = () => `<button type="button" class="label curcourse" data-action="courses" aria-haspopup="dialog" aria-label="Kurs: ${esc(COURSES.find(c => c.id === S.course).label)}. Zmień kurs">${esc(COURSES.find(c => c.id === S.course).label)}${ico('down', 14, 2.4)}</button>`;
-/* pasek postępu: jeden odcinek na poziom (szerokość = liczba umiejętności); turkus = potwierdzone, pomarańcz = zgłoszone */
+/* wynik + kafelki poziomów P1–P7 (skok do poziomu) */
 function progressMeter(t){
   const n = SKILLS.length, pct = Math.round(100 * t.stamps / n);
-  const segs = PAGES.map(p => {
-    const k = p.skills.length, c = 100 * p.skills.filter(x => levelOf(x[0]) === 2).length / k, w = 100 * p.skills.filter(x => levelOf(x[0]) === 1).length / k;
-    const done = p.skills.filter(x => levelOf(x[0]) === 2).length;
-    return `<button type="button" class="mseg${done === k ? ' full' : ''}" data-jump="${p.id}" aria-label="Poziom ${p.id}, ${esc(lvlName(p))}: ${done} z ${k} potwierdzonych. Przejdź do poziomu"><span class="mlab" aria-hidden="true">P${p.id}</span><span class="mbar" aria-hidden="true" style="background:linear-gradient(90deg,var(--done) 0 ${c}%,var(--orange) ${c}% ${c + w}%,var(--rule-soft) ${c + w}% 100%)"></span></button>`;
+  const tiles = PAGES.map(p => {
+    const k = p.skills.length, done = p.skills.filter(x => levelOf(x[0]) === 2).length;
+    return `<button type="button" class="mseg${done === k ? ' full' : ''}" data-jump="${p.id}" title="P${p.id} · ${esc(lvlName(p))} · ${done}/${k}" aria-label="Poziom ${p.id}, ${esc(lvlName(p))}: ${done} z ${k} potwierdzonych. Przejdź do poziomu"><span class="mlab" aria-hidden="true">P${p.id}</span><span class="mbar" aria-hidden="true" style="background:${barFill(p, 'all')}"></span></button>`;
   }).join('');
-  return `<div class="meter">
-    <div class="meter-top"><span class="tn"><b>${t.stamps}</b><small>/${n}</small></span><span class="meter-txt">umiejętności potwierdził instruktor<b class="meter-pct">${pct}% programu</b></span></div>
-    <div class="meter-bar" role="group" aria-label="Postęp wg poziomów">${segs}</div>
-  </div>`;
+  return `<div class="meter"><div class="meter-top"><span class="tn"><b>${t.stamps}</b><small>/${n}</small></span><span class="meter-txt">umiejętności potwierdził instruktor<b class="meter-pct">${pct}% programu</b></span></div>
+    <div class="meter-bar" role="group" aria-label="Poziomy kursu">${tiles}</div></div>`;
 }
 /* ciągły pasek postępu poziomu: turkus = potwierdzone, pomarańcz = zgłoszone; aktywny filtr zostawia tylko pasujący kolor */
 function barFill(p, filter){
@@ -963,6 +969,9 @@ function bookScreen(){
     <button type="button" class="fchip" data-status-filter="reported" aria-pressed="${filter === 'reported'}"><span class="mk wait xs" aria-hidden="true">${ico('clock', 11, 2.6)}</span>Zgłoszone <span class="fc-n">${t.waiting}</span></button>
   </div>`;
 
+
+  const nx = nextSkill();
+  const goOn = nx ? `<button type="button" class="goon" data-skill="${nx}"><span class="goon-tx"><span class="goon-k">${t.stamps + t.waiting === 0 ? 'Zacznij od' : 'Następna umiejętność'}</span><b>${nx} ${esc(shortOf(nx))}</b></span><span class="goon-go" aria-hidden="true">${ico('next', 20, 2.4)}</span></button>` : '';
 
   const level = p => {
     const st = pageStats(p);
@@ -1043,6 +1052,7 @@ function bookScreen(){
     <section class="tally" aria-labelledby="path-t">
       <h1 class="sr" id="path-t" tabindex="-1">Twoja ścieżka</h1>
       ${progressMeter(t)}
+      ${goOn}
       ${statusFilters}
     </section>
     <section class="zone-sect" aria-labelledby="z1-t">
