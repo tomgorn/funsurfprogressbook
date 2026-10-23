@@ -1211,8 +1211,18 @@ function meScreen(){
 }
 
 /* ---------- render ---------- */
-function render(keep){
+/* kotwica przewijania: element listy poziomów, który ma zostać w tym samym miejscu ekranu po przerysowaniu (pin = selektor klikniętego elementu; bez pin: pierwszy widoczny) */
+function scrollAnchor(pin){
+  const base = scroll.getBoundingClientRect().top;
+  let el = pin && view.querySelector(pin);
+  if (!el) el = [...view.querySelectorAll('.levels [data-level], .levels [data-skill]')].find(e => e.getBoundingClientRect().bottom > base + 1);
+  if (!el) return null;
+  const key = '.levels ' + (el.dataset.level ? '[data-level="' + el.dataset.level + '"]' : '[data-skill="' + el.dataset.skill + '"]');
+  return {key, off: el.getBoundingClientRect().top - base};
+}
+function render(keep, pin){
   const top = scroll.scrollTop;
+  const anchor = keep && S.screen === 'book' ? scrollAnchor(pin) : null;
   const detail = S.screen === 'skill' || (S.screen === 'videos' && S.clip != null);
   head.className = 'ahead' + (detail ? ' back' : '');
   head.innerHTML = header();
@@ -1222,6 +1232,7 @@ function render(keep){
   tabs.innerHTML = tabBar();
   composer.hidden = S.screen !== 'crew';
   scroll.scrollTop = keep ? top : 0;
+  if (anchor) { const n = view.querySelector(anchor.key); if (n) scroll.scrollTop += n.getBoundingClientRect().top - scroll.getBoundingClientRect().top - anchor.off; }
   S.justStamped = null;
   save();
 }
@@ -1280,7 +1291,7 @@ document.addEventListener('click', e => {
     } else {
       S.open = (S.open == null ? currentPage().id : S.open) === lvlId ? 0 : lvlId;
     }
-    render(true);
+    render(true, '.levels [data-level="' + lvlId + '"]');
     return;
   }
   if (d.report) {
