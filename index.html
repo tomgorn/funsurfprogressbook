@@ -478,8 +478,12 @@ span.unified-check{cursor:default}
 @media (hover:hover){button.unified-check:hover .mk.todo{border-color:var(--navy)}button.unified-check:hover .mk.wait{background:rgba(196,82,3,.18)}}
 
 /* wyrównanie nagłówka Postępu */
-.tally-row{align-items:flex-end;align-items:last baseline}
-.bignum{margin-left:-3px}
+.tally-row{align-items:center}
+.ring{position:relative;width:128px;height:128px;flex-shrink:0}
+.ring-c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.ring-c b{font-family:var(--f-display);font-weight:700;font-size:44px;line-height:44px;color:var(--navy);font-variant-numeric:tabular-nums}
+.ring-c span{font-size:13px;line-height:16px;font-weight:500;color:var(--muted);font-variant-numeric:tabular-nums}
+@media (max-width:360px){.ring,.ring svg{width:108px;height:108px}.ring-c b{font-size:36px;line-height:36px}}
 
 /* aktywny filtr: lekkie tło i cienka ramka zamiast ciężkiego obrysu */
 
@@ -912,6 +916,15 @@ const sect = (id, title, body, aside) => `<section class="sect" aria-labelledby=
    Basics (levels 1–4) go in order and have one "next" skill; manoeuvres (5–7) are picked in any order,
    so there is one list of 7 sections; only levels 1–4 have a 'next' skill. */
 const courseBtn = () => `<button type="button" class="label curcourse" data-action="courses" aria-haspopup="dialog" aria-label="Kurs: ${esc(COURSES.find(c => c.id === S.course).label)}. Zmień kurs">${esc(COURSES.find(c => c.id === S.course).label)}${ico('down', 14, 2.4)}</button>`;
+/* pierścień postępu: turkus = potwierdzone, pomarańcz = zgłoszone, reszta = do zrobienia */
+function progressRing(t){
+  const n = SKILLS.length, R = 52, C = 2 * Math.PI * R, a = C * t.stamps / n, b = C * t.waiting / n, pct = Math.round(100 * t.stamps / n);
+  const arc = (len, off, col) => len > 0 ? `<circle cx="64" cy="64" r="${R}" fill="none" stroke="${col}" stroke-width="10" stroke-dasharray="${len} ${C - len}" stroke-dashoffset="${-off}" transform="rotate(-90 64 64)"/>` : '';
+  return `<div class="ring" role="img" aria-label="${t.stamps} z ${n} umiejętności potwierdzonych, ${pct}%${t.waiting ? ', ' + t.waiting + ' czeka na instruktora' : ''}">
+    <svg viewBox="0 0 128 128" width="128" height="128" aria-hidden="true"><circle cx="64" cy="64" r="${R}" fill="none" stroke="var(--rule-soft)" stroke-width="10"/>${arc(a, 0, 'var(--done)')}${arc(b, a, 'var(--orange)')}</svg>
+    <div class="ring-c" aria-hidden="true"><b>${t.stamps}</b><span>z ${n} · ${pct}%</span></div>
+  </div>`;
+}
 function bookScreen(){
   const t = totals();
   const cur = currentPage();
@@ -1007,7 +1020,7 @@ function bookScreen(){
     <section class="tally" aria-labelledby="path-t">
       <h1 class="sr" id="path-t" tabindex="-1">Twoja ścieżka</h1>
       <div class="tally-row">
-        <span class="bignum">${t.stamps}<small>/${SKILLS.length}</small></span>
+        ${progressRing(t)}
         <div class="tally-meta">
           <p>umiejętności potwierdził instruktor</p>
           ${t.waiting ? `<span class="tm-pill wait">${ico('clock', 14, 2.4)}<span><b>${t.waiting}</b> czeka na instruktora</span></span>` : ''}
