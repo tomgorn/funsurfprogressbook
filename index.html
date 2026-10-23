@@ -46,6 +46,8 @@
   --orange: var(--fs-color-primary);     /* Unified brand orange */
   --btn: var(--fs-color-primary);
   --btn-hover: var(--fs-color-primary-hover);
+  --done: #0A8CA5;                       /* turkus „zaliczone”: 4:1 na bieli (obrys i ✓ ≥3:1) */
+  --done-tint: rgba(10,140,165,.1);
   --confirm: #001A33;                    /* stan „potwierdzone”: granat marki, ale w lekkiej formie (obrys, cienkie paski); pomarańcz tylko dla rzeczy wymagających uwagi */
   --orange-text: #A84203;                /* AA contrast text (5.3:1) */
   --tint: #FFF4EB;
@@ -468,11 +470,11 @@ span.unified-check{cursor:default}
 .mk.lg{width:40px;height:40px}
 .mk.sm{width:28px;height:28px}
 /* ukończony poziom: wypełniona plakietka w kolorze „potwierdzone” (jak marker i paski) */
-.lvl-badge.done{background:rgba(0,26,51,.08);border-color:rgba(0,26,51,.25);color:var(--navy);box-shadow:none}
+.lvl-badge.done{background:var(--done-tint);border-color:var(--done);color:var(--done);box-shadow:none}
 .lvl-head .n{display:inline-flex;align-items:center;justify-content:flex-end;min-width:28px}
 .mk.todo{border:2px solid var(--tick);background:var(--paper)}
 .mk.wait{border:2px solid var(--orange);background:rgba(196,82,3,.1);color:var(--orange-text)}
-.mk.done{border:2px solid var(--navy);background:var(--paper);color:var(--navy)}
+.mk.done{border:2px solid var(--done);background:var(--done-tint);color:var(--done)}
 @media (hover:hover){button.unified-check:hover .mk.todo{border-color:var(--navy)}button.unified-check:hover .mk.wait{background:rgba(196,82,3,.18)}}
 
 /* wyrównanie nagłówka Postępu */
@@ -523,7 +525,7 @@ span.unified-check{cursor:default}
 @keyframes ripple{from{transform:scale(1);opacity:.7}to{transform:scale(1.9);opacity:0}}
 /* chwila nagrody w kolorze marki: nowe potwierdzenie zaczyna pomarańczowe i osiada na granacie */
 .mk.done.fresh{animation:settle 1.4s ease-out both}
-@keyframes settle{0%,35%{border-color:var(--orange);color:var(--orange)}100%{border-color:var(--navy);color:var(--navy)}}
+@keyframes settle{0%,35%{border-color:var(--orange);color:var(--orange)}100%{border-color:var(--done);color:var(--done)}}
 @media (prefers-reduced-motion:reduce){.mk.fresh::after{display:none}.mk.done.fresh{animation:none}}
 
 /* onboarding: pełnoekranowy przewodnik na granacie, 3 ekrany przesuwane palcem */
