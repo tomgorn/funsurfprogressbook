@@ -525,6 +525,7 @@ span.unified-check{cursor:default}
 .fc-star{display:inline-flex;color:var(--navy)}
 .sk-star{display:inline-flex;vertical-align:-2px;color:var(--navy);margin-left:2px}
 .focusbtn{margin-top:12px;width:100%}
+.skrow,.skmain,.unified-check{touch-action:manipulation}
 .focusbtn[aria-pressed="true"]{background:rgba(0,26,51,.06);border-color:var(--navy)}
 .status-filters .fchip .mk{width:16px;height:16px}
 .mk.xs{width:18px;height:18px;border-width:1.5px}
@@ -1283,6 +1284,8 @@ function go(screen, opts){
 });
 
 document.addEventListener('click', e => {
+  const crow = e.target.closest('.skrow.is-confirmed');
+  if (crow) { const sb = crow.querySelector('[data-skill]'); if (sb) { confirmedTap(sb.dataset.skill); return; } }
   const el = e.target.closest('button, a');
   if (!el) return;
   const d = el.dataset;
@@ -1337,7 +1340,6 @@ document.addEventListener('click', e => {
     toast(was === 0 ? 'Zgłoszono umiejętność ' + id + ' do weryfikacji na wodzie.' : 'Cofnięto zgłoszenie umiejętności ' + id + '.');
     return;
   }
-  if (d.skill && el.closest('.skrow.is-confirmed')) { confirmedTap(d.skill, el); return; }
   if (d.skill) { const sk = SKILL(d.skill); S.page = sk.page; S.open = sk.page; go('skill', {skill: d.skill, from: d.from || S.screen}); return; }
   if (d.clip) { S.clip = +d.clip; if (S.screen !== 'videos') go('videos'); else render(true); scroll.scrollTop = 0; return; }
   if (d.clipTab) { S.clipTab = d.clipTab; render(true); return; }
@@ -1448,7 +1450,7 @@ function confirmedTap(id){
   tap.timer = setTimeout(() => {
     tap = {id:null, n:0, timer:0};
     const sk = SKILL(id); S.page = sk.page; S.open = sk.page; go('skill', {skill:id, from:S.screen});
-  }, 400);
+  }, 650);
 }
 
 /* symulacja instruktora: co druga zgłoszona umiejętność zostaje potwierdzona, pozostałe czekają jako „Zgłoszone";
