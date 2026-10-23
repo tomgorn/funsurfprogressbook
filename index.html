@@ -643,8 +643,8 @@ span.unified-check{cursor:default}
       <div class="intro-track" id="intro-track">
         <section class="intro-slide" aria-roledescription="slajd" aria-label="1 z 4">
           <div class="intro-art" aria-hidden="true">
-            <div class="il"><span class="lvl-badge done"><span class="lvl-badge-p">P3</span><span class="lvl-badge-n">6/6</span><span class="lvl-badge-bar" style="background:var(--done)"></span></span><b>PSWING 2: Skrzydło (wing) + deska wypornościowa</b><span class="chev"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></div>
-            <div class="il"><span class="lvl-badge"><span class="lvl-badge-p">P4</span><span class="lvl-badge-n">4/7</span><span class="lvl-badge-bar" style="background:linear-gradient(90deg,var(--done) 0 57%,var(--orange) 57% 71%,var(--rule-soft) 71% 100%)"></span></span><b>PSWING 3: Deska z foilem</b><span class="chev"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></div>
+            <div class="il"><span class="lvl-badge done"><span class="lvl-badge-p">3</span><span class="lvl-badge-n">6/6</span><span class="lvl-badge-bar" style="background:var(--done)"></span></span><b>PSWING 2: Skrzydło (wing) + deska wypornościowa</b><span class="chev"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></div>
+            <div class="il"><span class="lvl-badge"><span class="lvl-badge-p">4</span><span class="lvl-badge-n">4/7</span><span class="lvl-badge-bar" style="background:linear-gradient(90deg,var(--done) 0 57%,var(--orange) 57% 71%,var(--rule-soft) 71% 100%)"></span></span><b>PSWING 3: Deska z foilem</b><span class="chev"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span></div>
           </div>
           <h2>Lista umiejętności</h2>
           <p>Program kursu ma 7 poziomów. Dotknij poziomu, żeby zobaczyć jego umiejętności.</p>
@@ -944,7 +944,7 @@ function progressMeter(t){
   const n = SKILLS.length, pct = Math.round(100 * t.stamps / n);
   const tiles = PAGES.map(p => {
     const k = p.skills.length, done = p.skills.filter(x => levelOf(x[0]) === 2).length;
-    return `<button type="button" class="mseg${done === k ? ' full' : ''}" data-jump="${p.id}" title="P${p.id} · ${esc(lvlName(p))} · ${done}/${k}" aria-label="Poziom ${p.id}, ${esc(lvlName(p))}: ${done} z ${k} potwierdzonych. Przejdź do poziomu"><span class="mlab" aria-hidden="true">P${p.id}</span><span class="mbar" aria-hidden="true" style="background:${barFill(p, 'all')}"></span></button>`;
+    return `<button type="button" class="mseg${done === k ? ' full' : ''}" data-jump="${p.id}" title="Poziom ${p.id} · ${esc(lvlName(p))} · ${done}/${k}" aria-label="Poziom ${p.id}, ${esc(lvlName(p))}: ${done} z ${k} potwierdzonych. Przejdź do poziomu"><span class="mlab" aria-hidden="true">${p.id}</span><span class="mbar" aria-hidden="true" style="background:${barFill(p, 'all')}"></span></button>`;
   }).join('');
   return `<div class="meter"><div class="meter-top"><span class="tn"><b>${t.stamps}</b><small>/${n}</small></span><span class="meter-txt">umiejętności potwierdził instruktor<b class="meter-pct">${pct}% programu</b></span></div>
     <div class="meter-bar" role="group" aria-label="Poziomy kursu">${tiles}</div></div>`;
@@ -1021,7 +1021,7 @@ function bookScreen(){
       : `${st.stamps}/${st.total}`;
 
     // Level badge (Zaliczony z pieczęcią vs Z numerkiem)
-    const badgeHtml = `<span class="lvl-badge${st.done ? ' done' : ''}" aria-hidden="true"><span class="lvl-badge-p">P${p.id}</span><span class="lvl-badge-n">${st.stamps}/${st.total}</span><span class="lvl-badge-bar" style="background:${barFill(p, filter)}"></span></span>`;
+    const badgeHtml = `<span class="lvl-badge${st.done ? ' done' : ''}" aria-hidden="true"><span class="lvl-badge-p">${p.id}</span><span class="lvl-badge-n">${st.stamps}/${st.total}</span><span class="lvl-badge-bar" style="background:${barFill(p, filter)}"></span></span>`;
 
     return `<li class="lvl ${cls}" id="lvl-sect-${p.id}">
       <button type="button" class="lvl-head${filter === 'reported' ? ' has-n' : ''}" aria-expanded="${isOpen}" aria-controls="lvl-${p.id}" data-level="${p.id}">
