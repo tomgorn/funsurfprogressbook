@@ -1248,6 +1248,7 @@ document.addEventListener('click', e => {
     toast(was === 0 ? 'Zgłoszono umiejętność ' + id + ' do weryfikacji na wodzie.' : 'Cofnięto zgłoszenie umiejętności ' + id + '.');
     return;
   }
+  if (d.skill && el.closest('.skrow.is-confirmed')) { confirmedTap(d.skill, el); return; }
   if (d.skill) { const sk = SKILL(d.skill); S.page = sk.page; S.open = sk.page; go('skill', {skill: d.skill, from: d.from || S.screen}); return; }
   if (d.clip) { S.clip = +d.clip; if (S.screen !== 'videos') go('videos'); else render(true); scroll.scrollTop = 0; return; }
   if (d.clipTab) { S.clipTab = d.clipTab; render(true); return; }
@@ -1341,6 +1342,23 @@ function closeIntro(){
   S.seenIntro = true; save();
   const h = view.querySelector('h1[tabindex]') || head.querySelector('h1[tabindex]');
   if (h) h.focus({preventScroll:true});
+}
+
+/* ukryte: cztery szybkie dotknięcia potwierdzonego wiersza zerują jego stan (do pokazów); pojedyncze otwiera umiejętność */
+let tap = {id:null, n:0, timer:0};
+function confirmedTap(id){
+  clearTimeout(tap.timer);
+  tap.n = tap.id === id ? tap.n + 1 : 1; tap.id = id;
+  if (tap.n >= 4) {
+    tap = {id:null, n:0, timer:0};
+    setLevel(id, 0); delete S.stampDates[id]; delete S.stampBy[id]; delete S.notes[id]; if (S.tries) delete S.tries[id]; cancelStamp(id);
+    render(true); toast('Umiejętność ' + id + ' wyzerowana.');
+    return;
+  }
+  tap.timer = setTimeout(() => {
+    tap = {id:null, n:0, timer:0};
+    const sk = SKILL(id); S.page = sk.page; S.open = sk.page; go('skill', {skill:id, from:S.screen});
+  }, 400);
 }
 
 /* symulacja instruktora: co druga zgłoszona umiejętność zostaje potwierdzona, pozostałe czekają jako „Zgłoszone";
