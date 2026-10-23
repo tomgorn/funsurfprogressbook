@@ -519,11 +519,15 @@ span.unified-check{cursor:default}
 .fc-n.ok{color:var(--navy)}
 .fchips{display:flex;gap:8px;overflow-x:auto;padding:12px 0 4px;scrollbar-width:none}
 .fchips::-webkit-scrollbar{display:none}
-.status-filters{margin:12px 0 0;display:flex;gap:6px}
-.status-filters .fchip{flex:1 1 auto;min-width:0;padding:0 8px;gap:5px;font-size:13px}
+.status-filters{margin:12px calc(-1 * var(--gut)) 0;padding:2px var(--gut);display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;overscroll-behavior-x:contain}
+.status-filters::-webkit-scrollbar{display:none}
+.status-filters .fchip{flex:0 0 auto;padding:0 12px;gap:6px;font-size:14px}
+.fc-star{display:inline-flex;color:var(--navy)}
+.sk-star{display:inline-flex;vertical-align:-2px;color:var(--navy);margin-left:2px}
+.focusbtn{margin-top:12px;width:100%}
+.focusbtn[aria-pressed="true"]{background:rgba(0,26,51,.06);border-color:var(--navy)}
 .status-filters .fchip .mk{width:16px;height:16px}
 .mk.xs{width:18px;height:18px;border-width:1.5px}
-@media (max-width:370px){.status-filters .fchip .mk{display:none}}
 /* chip kursu: neutralny przycisk, nie etykieta */
 .curcourse{position:relative;width:fit-content;margin:16px 0 12px;min-height:40px;padding:0 12px 0 14px;display:inline-flex;align-items:center;gap:8px;border:1px solid var(--tick);border-radius:var(--r);background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:14px;font-weight:600;line-height:20px;letter-spacing:0;text-transform:none;cursor:pointer}
 .curcourse::after{content:"";position:absolute;inset:-2px -6px}
@@ -655,7 +659,7 @@ span.unified-check{cursor:default}
             <ol class="tips"><li><span>1</span><span>Przygotowanie: prędkość i ugięte kolana.</span></li><li><span>2</span><span>Wybicie: ciężar na przednią nogę, potem na tylną.</span></li></ol>
           </div>
           <h2>Wideo i wskazówki</h2>
-          <p>Dotknij umiejętności. Zobaczysz wideo, opis i wskazówki instruktora. Wideo możesz zapisać w telefonie.</p>
+          <p>Dotknij umiejętności: wideo, opis, wskazówki. Gwiazdką zaznaczysz, nad czym teraz pracujesz.</p>
         </section>
         <section class="intro-slide" aria-roledescription="slajd" aria-label="3 z 4">
           <div class="intro-art a3" aria-hidden="true">
@@ -712,6 +716,7 @@ const I = {
   plus:'<path d="M12 5v14"/><path d="M5 12h14"/>',
   };
 const ico = (n, s=24, w=1.8) => `<svg aria-hidden="true" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round">${I[n]}</svg>`;
+const starIco = (s=16, on=false) => `<svg aria-hidden="true" width="${s}" height="${s}" viewBox="0 0 24 24" fill="${on ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.5 2.9 1-6.1-4.3-4.3 6.1-.9z"/></svg>`;
 const playIco = (s=22, fill='currentColor') => `<svg aria-hidden="true" width="${s}" height="${s}" viewBox="0 0 24 24" fill="${fill}"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>`;
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
@@ -869,7 +874,7 @@ function fresh(){
     levels:Object.fromEntries(SKILLS.map(s => [s.id, s.level])),
     firstLevels:{}, stampDates:{}, justStamped:null,
     offline:{}, notes:{}, clip:null, clipTab:null, stampBy:{}, clipDate:'all', clipSkill:'all',
-    liked:{}, posts:[], seenIntro:false, prefs:{stamps:true, clips:false, remind:true}};
+    liked:{}, posts:[], seenIntro:false, focus:{}, prefs:{stamps:true, clips:false, remind:true}};
 }
 const KEY = 'funsurf-progress-book-v2';
 let S = fresh();
@@ -963,15 +968,17 @@ function bookScreen(){
   const open = S.open == null ? cur.id : S.open;
   const fresh = new Set(Object.keys(S.stampDates).concat(S.phase === 'course' ? ['4.4'] : []));
 
-  const statusFilters = `<div class="status-filters" role="group" aria-label="Filtruj umiejętności wg statusu">
+  const nf = SKILLS.filter(k => S.focus && S.focus[k.id] && levelOf(k.id) !== 2).length;
+  const statusFilters = `<div class="status-filters" role="group" aria-label="Filtruj umiejętności">
     <button type="button" class="fchip" data-status-filter="all" aria-pressed="${filter === 'all'}">Wszystkie</button>
-    <button type="button" class="fchip" data-status-filter="confirmed" aria-pressed="${filter === 'confirmed'}"><span class="mk done xs" aria-hidden="true">${ico('check', 11, 3)}</span>Potwierdzone <span class="fc-n ok">${t.stamps}</span></button>
+    <button type="button" class="fchip" data-status-filter="focus" aria-pressed="${filter === 'focus'}"><span class="fc-star" aria-hidden="true">${starIco(15, true)}</span>Mój focus <span class="fc-n ok">${nf}</span></button>
     <button type="button" class="fchip" data-status-filter="reported" aria-pressed="${filter === 'reported'}"><span class="mk wait xs" aria-hidden="true">${ico('clock', 11, 2.6)}</span>Zgłoszone <span class="fc-n">${t.waiting}</span></button>
+    <button type="button" class="fchip" data-status-filter="confirmed" aria-pressed="${filter === 'confirmed'}"><span class="mk done xs" aria-hidden="true">${ico('check', 11, 3)}</span>Potwierdzone <span class="fc-n ok">${t.stamps}</span></button>
   </div>`;
 
-
-  const nx = nextSkill();
-  const goOn = nx ? `<button type="button" class="goon" data-skill="${nx}"><span class="goon-tx"><span class="goon-k">${t.stamps + t.waiting === 0 ? 'Zacznij od' : 'Następna umiejętność'}</span><b>${nx} ${esc(shortOf(nx))}</b></span><span class="goon-go" aria-hidden="true">${ico('next', 20, 2.4)}</span></button>` : '';
+  const fx = SKILLS.find(k => S.focus && S.focus[k.id] && levelOf(k.id) !== 2);
+  const nx = fx ? fx.id : nextSkill();
+  const goOn = nx ? `<button type="button" class="goon" data-skill="${nx}"><span class="goon-tx"><span class="goon-k">${fx ? 'Mój focus' : t.stamps + t.waiting === 0 ? 'Zacznij od' : 'Następna umiejętność'}</span><b>${nx} ${esc(shortOf(nx))}</b></span><span class="goon-go" aria-hidden="true">${ico('next', 20, 2.4)}</span></button>` : '';
 
   const level = p => {
     const st = pageStats(p);
@@ -979,6 +986,7 @@ function bookScreen(){
       const l = levelOf(id);
       if (filter === 'confirmed') return l === 2;
       if (filter === 'reported') return l === 1;
+      if (filter === 'focus') return !!(S.focus && S.focus[id]) && l !== 2;
       return true;
     });
 
@@ -1005,10 +1013,10 @@ function bookScreen(){
       const metaPill = wait ? `<span class="sk-status-pill reported">Zgłoszone do weryfikacji</span>` : '';
       const checkAria = wait ? `Cofnij zgłoszenie umiejętności ${id}` : `Zgłoś umiejętność ${id} do potwierdzenia`;
       return `<div class="skrow ${wait ? 'is-reported' : ''}">
-        <button class="skmain" data-skill="${id}" aria-label="${id} ${esc(title)}">
+        <button class="skmain" data-skill="${id}" aria-label="${id} ${esc(title)}${S.focus && S.focus[id] ? ', mój focus' : ''}">
           <span class="sk-num">${id}</span>
           <span class="sk-info">
-            <span class="sk-title">${esc(title)}</span>
+            <span class="sk-title">${esc(title)}${S.focus && S.focus[id] ? ` <span class="sk-star">${starIco(14, true)}</span>` : ''}</span>
             ${metaPill ? `<span class="sk-meta">${metaPill}</span>` : ''}
           </span>
         </button>
@@ -1042,8 +1050,8 @@ function bookScreen(){
   const content = renderedLevels
     ? `<ol class="levels">${renderedLevels}</ol>`
     : `<div class="empty-filter-state">
-        <div class="empty-icon" aria-hidden="true">${filter === 'reported' ? ico('clock', 24, 2) : ico('check', 24, 2)}</div>
-        <p>${filter === 'reported' ? 'Brak zgłoszonych umiejętności. Zgłoś ćwiczenie klikając pole wyboru, aby instruktor potwierdził je na wodzie.' : 'Brak potwierdzonych umiejętności w tym filtrze.'}</p>
+        <div class="empty-icon" aria-hidden="true">${filter === 'reported' ? ico('clock', 24, 2) : filter === 'focus' ? starIco(24, false) : ico('check', 24, 2)}</div>
+        <p>${filter === 'reported' ? 'Brak zgłoszonych umiejętności. Zgłoś ćwiczenie klikając pole wyboru, aby instruktor potwierdził je na wodzie.' : filter === 'focus' ? 'Nie masz jeszcze focusu. Otwórz umiejętność i dotknij „Dodaj do focusu”, żeby ją tu zebrać.' : 'Brak potwierdzonych umiejętności w tym filtrze.'}</p>
         <button type="button" class="btn ghost" data-status-filter="all">Pokaż wszystkie umiejętności</button>
       </div>`;
 
@@ -1098,6 +1106,7 @@ function skillScreen(){
         ${wait ? '<button class="linkbtn" data-action="unreport" style="color:var(--orange-text)">Cofnij zgłoszenie</button>' : ''}
       </div>
       ${!on && !wait ? '<button class="btn report" data-action="report">Zgłoś do potwierdzenia</button>' : ''}
+      ${!on ? `<button type="button" class="btn ghost focusbtn" data-action="focus" aria-pressed="${!!(S.focus && S.focus[s.id])}">${starIco(18, !!(S.focus && S.focus[s.id]))}${S.focus && S.focus[s.id] ? 'Mój focus' : 'Dodaj do focusu'}</button>` : ''}
       ${d.how || tips.length ? sect('how-t', 'Jak to zrobić', `${d.how ? `<p class="prose how-p">${esc(d.how)}</p>` : ''}${tipsHtml}`) : ''}
       ${nx && !PAGES[s.page - 1].free && !PAGES[nx.page - 1].free ? `<button class="nextrow" data-skill="${nx.id}"><span><span class="label">Następna · ${nx.id}</span><b>${esc(shortOf(nx.id))}</b></span><span class="roundgo" aria-hidden="true">${ico('next', 20, 2)}</span></button>` : ''}
     </div>
@@ -1279,7 +1288,18 @@ document.addEventListener('click', e => {
     const next = (S.statusFilter === d.statusFilter && d.statusFilter !== 'all') ? 'all' : d.statusFilter;
     S.statusFilter = next;
     S.filterClosed = {};
+    const sf0 = document.querySelector('.status-filters'), sl = sf0 ? sf0.scrollLeft : 0;
     render(true);
+    const sf1 = document.querySelector('.status-filters');
+    if (sf1) {
+      sf1.scrollLeft = sl;
+      const pr = sf1.querySelector('[aria-pressed="true"]');
+      if (pr && next !== 'all') {
+        const gut = 20;
+        if (pr.offsetLeft + pr.offsetWidth > sf1.scrollLeft + sf1.clientWidth - gut) sf1.scrollLeft = pr.offsetLeft + pr.offsetWidth - sf1.clientWidth + gut;
+        else if (pr.offsetLeft < sf1.scrollLeft + gut) sf1.scrollLeft = Math.max(0, pr.offsetLeft - gut);
+      }
+    }
     return;
   }
   if (d.course) { S.course = d.course; S.open = null; courseDialog.close(); render(false); return; }
@@ -1318,6 +1338,7 @@ document.addEventListener('click', e => {
   switch (d.action) {
     case 'closeClip': S.clip = null; render(false); break;
     case 'back': go(S.from === 'videos' ? 'videos' : 'book', {page: SKILL(S.skill).page}); break;
+    case 'focus': { S.focus = S.focus || {}; const on = !S.focus[S.skill]; if (on) S.focus[S.skill] = true; else delete S.focus[S.skill]; render(true); toast(on ? 'Dodano do Twojego focusu.' : 'Usunięto z focusu.'); break; }
     case 'report': setLevel(S.skill, 1); delete S.notes[S.skill]; scheduleStamp(S.skill); render(true); toast('Zgłoszone. Instruktor zobaczy to na swojej liście do potwierdzenia.'); break;
     case 'unreport': setLevel(S.skill, 0); cancelStamp(S.skill); render(true); toast('Zgłoszenie cofnięte.'); break;
     case 'closeReward': closeReward(); break;
@@ -1353,12 +1374,12 @@ document.addEventListener('keydown', e => {
 });
 
 /* ---------- reward moment: the only place with the ornate stamp ---------- */
-function openReward(id){
+function openReward(id, wasFocus){
   const s = SKILL(id), d = DETAILS[id] || {}, p = PAGES[s.page - 1], levelDone = pageStats(p).done;
   $('reward-title').textContent = levelDone ? `Poziom ${p.id} ukończony` : 'Umiejętność potwierdzona';
   $('reward-text').textContent = levelDone
     ? `Wszystkie umiejętności z poziomu ${p.id} masz potwierdzone.`
-    : `${id} · ${d.short || s.title}. Potwierdził ${stampBy(id)}. Zostaje w Twoim Progress Book.`;
+    : `${id} · ${d.short || s.title}. Potwierdził ${stampBy(id)}. Zostaje w Twoim Progress Book.${wasFocus ? ' Focus zrealizowany.' : ''}`;
   rewardDialog.showModal();
 }
 function closeReward(){
@@ -1430,9 +1451,10 @@ function scheduleStamp(id){
     if (levelOf(id) !== 1) return;
     if (S.tries[id] < 2) { S.reviews = (S.reviews || 0) + 1; if (S.reviews % 2 === 0) return; }
     const who = shortName(courseInstructors()[0]), here = S.screen === 'skill' && S.skill === id && intro.hidden;
+    const wasFocus = !!(S.focus && S.focus[id]); if (S.focus) delete S.focus[id];
     setLevel(id, 2); S.stampDates[id] = 'dziś'; S.stampBy[id] = courseInstructors()[0]; S.justStamped = id;
     render(true);
-    if (here) openReward(id); else toast(who + ' potwierdził umiejętność ' + id + '.');
+    if (here) openReward(id, wasFocus); else toast(who + ' potwierdził umiejętność ' + id + '.' + (wasFocus ? ' Focus zrealizowany.' : ''));
   }, 8000);
 }
 const cancelStamp = id => clearTimeout(pending[id]);
